@@ -17,7 +17,7 @@
                   <a class="uk-button uk-button-danger" href="#demo-modal" uk-toggle>
                     Demo
                   </a>
-                  <router-link to="/login" class="uk-button uk-button-danger">Sign In</router-link>
+                  <a href="#login-modal" uk-toggle class="uk-button uk-button-danger">Sign In</a>
               </div>
           </div>
         </div>
@@ -36,7 +36,7 @@
 
     <div class="uk-child-width-1-3@m uk-grid-small uk-grid-match uk-margin-small" uk-grid>
         <div>
-            <div class="uk-card uk-card-default uk-card-body uk-card-hover uk-animation-slide-left">
+            <center class="uk-card uk-card-default uk-card-body uk-card-hover uk-animation-slide-left">
                 <h3 class="uk-card-title">
                   <span uk-icon="icon: users; ratio: 2"></span>
                   <br />
@@ -46,10 +46,10 @@
                   You can add a new voice for the system by passing just a few seconds of speaker talking. 
                   It will be enough to get speakers basic voice parameters
                 </p>
-            </div>
+            </center>
         </div>
         <div>
-            <div class="uk-card uk-card-default uk-card-body uk-card-hover uk-animation-slide-top">
+            <center class="uk-card uk-card-default uk-card-body uk-card-hover uk-animation-slide-top">
                 <h3 class="uk-card-title">
                   <span uk-icon="icon: world; ratio: 2"></span>
                   <br />
@@ -58,10 +58,10 @@
                 <p>
                   System includes some algorithms to scale for new languages as quickly as possible.
                 </p>
-            </div>
+            </center>
         </div>
         <div>
-            <div class="uk-card uk-card-default uk-card-body uk-card-hover uk-animation-slide-right">
+            <center class="uk-card uk-card-default uk-card-body uk-card-hover uk-animation-slide-right">
                 <h3 class="uk-card-title">
                   <span uk-icon="icon: soundcloud; ratio: 2"></span>
                   <br />
@@ -70,7 +70,7 @@
                 <p>
                   System can generate high quality speech using high tech machine learning models.
                 </p>
-            </div>
+            </center>
         </div>
     </div>
 
@@ -147,16 +147,27 @@
         </div>
     </div>
 
+    <div id="login-modal" class="uk-flex-top" uk-modal>
+        <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+
+            <button class="uk-modal-close-default" type="button" uk-close></button>
+
+            <Login />
+
+        </div>
+    </div>
+
   </div>
 </template>
 
 <script>
 import DemoVoiceOverForm from './Demo.vue'
+import Login from './Login.vue'
 
 export default {
   name: 'UnsignedHome',
   components: {
-    DemoVoiceOverForm
+    DemoVoiceOverForm, Login
   },
   data: function () {
       return {

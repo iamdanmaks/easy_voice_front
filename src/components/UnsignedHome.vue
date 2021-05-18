@@ -13,10 +13,8 @@
           <img class="uk-width-medium uk-height-medium" src="../assets/logo.png"  />
           <div>
               <div class="uk-button-group">
-                  <button class="uk-button uk-button-danger">Sign Up</button>
-                  <a class="uk-button uk-button-danger" href="#demo-modal" uk-toggle>
-                    Demo
-                  </a>
+                  <a class="uk-button uk-button-danger" href="#signup-modal" uk-toggle>Sign Up</a>
+                  <a class="uk-button uk-button-danger" href="#demo-modal" uk-toggle>Demo</a>
                   <a href="#login-modal" uk-toggle class="uk-button uk-button-danger">Sign In</a>
               </div>
           </div>
@@ -157,17 +155,28 @@
         </div>
     </div>
 
+    <div id="signup-modal" class="uk-flex-top" uk-modal>
+        <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+
+            <button class="uk-modal-close-default" type="button" uk-close></button>
+
+            <Signup />
+
+        </div>
+    </div>
+
   </div>
 </template>
 
 <script>
 import DemoVoiceOverForm from './Demo.vue'
 import Login from './Login.vue'
+import Signup from './Signup.vue'
 
 export default {
   name: 'UnsignedHome',
   components: {
-    DemoVoiceOverForm, Login
+    DemoVoiceOverForm, Login, Signup
   },
   data: function () {
       return {

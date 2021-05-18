@@ -48,10 +48,11 @@ export default {
                 return;
             }
 
-            let email = this.email_username;
+            let email_username = this.email_username;
             let password = this.password;
+
             this.$store
-                .dispatch("login", { email, password })
+                .dispatch("login", { email_username, password })
                 .then(() => {
                     this.$router.push("/");
                     window.location.reload(true);

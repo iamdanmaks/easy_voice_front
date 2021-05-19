@@ -3,7 +3,7 @@
         <form class="uk-margin-right uk-margin-top" @submit.prevent="voiceText">
             <fieldset class="uk-fieldset">
 
-                <legend class="uk-legend">Try voice the text with some default voices</legend>
+                <legend class="uk-legend">Voice the text using available voices</legend>
 
                 <div class="uk-margin">
                     <div class="uk-form-label">Choose the voice<sup style="color: darkred; font-size: 10pt">*</sup></div>

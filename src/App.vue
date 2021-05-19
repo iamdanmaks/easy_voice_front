@@ -7,7 +7,7 @@
           :size="120"></avatar>
           <h3 class="uk-text-lead" style="font-size: 16pt">
             {{ $store.state.user.first_name + ' ' + $store.state.user.last_name }} 
-            <sup uk-icon="icon: bolt" uk-tooltip="title: Organization Admin"></sup>  
+            <sup uk-icon="icon: bolt" :uk-tooltip="'title: ' + $store.state.organization.name + ' Admin'"></sup>  
             <br>
             <span style="font-size: 14pt" class="uk-text-meta">
               {{ '@' + $store.state.user.username }}  

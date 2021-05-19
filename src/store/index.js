@@ -8,7 +8,8 @@ export default new Vuex.Store({
   state: {
     status: '',
     token: localStorage.getItem('token') || '',
-    user: null
+    user: null,
+    organization: null
   },
   mutations: {
     auth_request(state) {
@@ -21,17 +22,23 @@ export default new Vuex.Store({
     auth_error(state) {
       state.status = 'error'
     },
-    set_user(state, user) {
+    set_user(state, user, organization) {
+      state.organization = organization
       state.user = user
     },
     user_restored(state, user) {
       state.status = 'success'
       state.user = user
     },
+    org_restored(state, organization) {
+      state.status = 'success'
+      state.organization = organization
+    },
     logout(state) {
       state.status = ''
       state.token = ''
       state.user = null
+      state.organization = null
     },
   },
   getters: {
@@ -47,7 +54,15 @@ export default new Vuex.Store({
             .get('http://34.118.9.73:8080/api/user/', { headers: { Authorization: 'Bearer ' + resp.data.Authorization } })
             .then(response => {
               const user_info = response.data
-              commit('set_user', user_info)
+
+              axios
+              .get('http://34.118.9.73:8080/api/organization/', { headers: { Authorization: 'Bearer ' + resp.data.Authorization } })
+              .then(rsp => {
+                commit('set_user', user_info, rsp.data)
+              })
+              .catch(err => {
+                console.log(err.response.data.message);
+              })
             })
             .catch(err => {
               console.log(err.response.data.message);
@@ -71,7 +86,16 @@ export default new Vuex.Store({
       return new Promise((resolve, reject) => {
         axios({ url: 'http://34.118.9.73:8080/api/user/', method: 'GET' })
           .then(resp => {
-            commit('user_restored', resp.data)
+            axios
+            .get('http://34.118.9.73:8080/api/organization/')
+            .then(rsp => {
+              const org = rsp.data
+              commit('user_restored', resp.data)
+              commit('org_restored', org)
+            })
+            .catch(err => {
+              console.log(err.response.data.message);
+            })
             resolve(resp)
           })
           .catch(err => {

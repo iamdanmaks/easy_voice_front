@@ -7,12 +7,14 @@ import i18n from './i18n'
 import VeeValidate from 'vee-validate'
 import Axios from 'axios'
 import Vuetify from 'vuetify';
+import JsonViewer from 'vue-json-viewer';
 
 
 Vue.config.productionTip = false
 
 Vue.use(VeeValidate);
 Vue.use(Vuetify);
+Vue.use(JsonViewer);
 
 Vue.prototype.$http = Axios;
 const token = localStorage.getItem('token');

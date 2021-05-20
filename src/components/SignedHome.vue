@@ -14,7 +14,7 @@
         class="uk-button uk-button-text uk-align-right uk-margin-large-bottom uk-margin-large-right">
             Save queries as .csv
         </button>
-        <div class="uk-margin-large-top uk-margin-right uk-margin-medium-bottom">
+        <div class="uk-margin-large-top uk-margin-right uk-margin-medium-bottom" v-if="queries.length != 0">
             <center class="uk-margin-medium-right" id="date_tokens"></center>
             <center class="uk-margin-medium-right" id="query_time"></center>
             <center class="uk-margin-medium-right" id="lang_count"></center>
@@ -29,6 +29,24 @@
             font-family="Roboto"
             />
         </div>
+        <article v-for="v in queries.reverse()" :key="v.public_id" class="uk-comment uk-comment-primary">
+            <header class="uk-comment-header">
+                <div class="uk-grid-medium uk-flex-middle" uk-grid>
+                    <div class="uk-width-expand">
+                        <h4 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset" href="#">
+                            Voiced with: {{ v.voice }}
+                        </a></h4>
+                        <ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
+                            <li><a href="#">{{ v.date.split(' ')[0] }}</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </header>
+            <div class="uk-comment-body">
+                <p>{{ v.text }}</p>
+                <audio :src="v.url" controls></audio>
+            </div>
+        </article>
     </div>
 </template>
 <script>
@@ -191,3 +209,6 @@ export default {
     }
 }
 </script>
+<style scoped>
+
+</style>

@@ -73,6 +73,16 @@
 
         </div>
     </div>
+
+    <div id="voice-add-modal" class="uk-flex-top" uk-modal>
+        <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+
+            <button class="uk-modal-close-default" type="button" uk-close></button>
+
+            <VoiceAdd />
+
+        </div>
+    </div>
   </div>
 </template>
 
@@ -80,11 +90,12 @@
 import Avatar from 'vue-avatar'
 import UpgradeModal from './components/UpgradeModal.vue'
 import EditOrganization from './components/EditOrganization.vue'
+import VoiceAdd from './components/VoiceAdd.vue'
 
 export default {
   name: 'App',
   components: {
-    Avatar, UpgradeModal, EditOrganization
+    Avatar, UpgradeModal, EditOrganization, VoiceAdd
   },
   data: () => ({
     

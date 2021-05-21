@@ -9,7 +9,8 @@ export default new Vuex.Store({
     status: '',
     token: localStorage.getItem('token') || '',
     user: null,
-    organization: null
+    organization: null,
+    filledIn: true
   },
   mutations: {
     auth_request(state) {
@@ -18,6 +19,16 @@ export default new Vuex.Store({
     auth_success(state, token) {
       state.status = 'success'
       state.token = token
+    },
+    set_token(state, token) {
+      state.status = 'success'
+      state.token = token
+    },
+    set_filled_in_false(state) {
+      state.filledIn = false
+    },
+    set_filled_in_true(state) {
+      state.filledIn = true
     },
     auth_error(state) {
       state.status = 'error'
@@ -40,11 +51,26 @@ export default new Vuex.Store({
       state.user = null
       state.organization = null
     },
+    set_token(state, token) {
+      state.status = 'success'
+      state.token = token
+    }
   },
   getters: {
-    isLoggedIn: state => !!state.token
+    isLoggedIn: state => !!state.token && state.filledIn
   },
   actions: {
+    setToken({ commit }, tkn) {
+      const token = 'Bearer ' + tkn
+      localStorage.setItem('token', token)
+      axios.defaults.headers.common['Authorization'] = token
+
+      commit('set_token', token)
+      commit('set_filled_in_false')
+    },
+    setFilledIn({ commit }) {
+      commit('set_filled_in_true')
+    },
     login({ commit }, user) {
       return new Promise((resolve, reject) => {
         commit('auth_request')
@@ -81,6 +107,19 @@ export default new Vuex.Store({
             reject(err)
           })
       })
+    },
+    getOrg({ commit }) {
+      return new Promise((resolve, reject) => {
+          axios
+          .get('http://34.118.9.73:8080/api/organization/')
+          .then(rsp => {
+            const org = rsp.data
+            commit('org_restored', org)
+          })
+          .catch(err => {
+            console.log(err.response.data.message);
+          })
+        })
     },
     getUser({ commit }) {
       return new Promise((resolve, reject) => {

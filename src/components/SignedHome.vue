@@ -10,26 +10,30 @@
             <progress
             class="uk-progress" :value="$store.state.organization.tokens_left" max="300000"></progress>
         </div>
-        <button v-on:click="csv"
-        class="uk-button uk-button-text uk-align-right uk-margin-large-bottom uk-margin-large-right">
-            Save queries as .csv
-        </button>
-        <div class="uk-margin-large-top uk-margin-right uk-margin-medium-bottom" v-if="queries.length != 0">
+        <div class="uk-margin-top">
+            <button v-on:click="csv"
+            class="uk-button uk-button-text uk-align-right uk-margin-large-bottom uk-margin-large-right">
+                Save queries as .csv
+            </button>
+        </div>
+        <div class="uk-margin-large-top uk-margin-right uk-margin-medium-bottom">
             <center class="uk-margin-medium-right" id="date_tokens"></center>
             <center class="uk-margin-medium-right" id="query_time"></center>
             <center class="uk-margin-medium-right" id="lang_count"></center>
             <center class="uk-text-large">Most common words</center>
             <vue-word-cloud
+            id="wcloud"
             style="
                 width: 75vw;
                 height: 30vh;
             "
+            spacing="0.1"
             :words="word_list"
-            :color="([, weight]) => weight > 10 ? 'DeepPink' : weight > 5 ? 'RoyalBlue' : 'Indigo'"
+            :color="([, weight]) => weight > 5 ? 'DeepPink' : weight > 2 ? 'RoyalBlue' : 'Indigo'"
             font-family="Roboto"
             />
         </div>
-        <article v-for="v in queries.reverse()" :key="v.public_id" class="uk-comment uk-comment-primary">
+        <article v-for="v in queries.reverse()" :key="v.public_id" class="uk-comment uk-comment-primary uk-margin-right uk-margin-small-top">
             <header class="uk-comment-header">
                 <div class="uk-grid-medium uk-flex-middle" uk-grid>
                     <div class="uk-width-expand">
@@ -191,7 +195,10 @@ export default {
             }
 
             var wordCount = words(resp.data.map(v => v.text).join(' '));
-            _this.word_list = Object.keys(wordCount).map(key => [key, wordCount[key]]);
+            _this.word_list = Object.keys(wordCount).map(
+                key => [key, wordCount[key]]
+            ).sort(function(a, b) { return b[1] - a[1]; }).slice(0, 35);
+            document.getElementById('wcloud').style = "width: 70vw; height: 35vh"
         });
     },
     computed: {

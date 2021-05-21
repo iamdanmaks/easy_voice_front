@@ -4,6 +4,8 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Api from '../views/Api.vue'
 import Voicing from '../views/Voicing.vue'
+import Organization from '../views/Organization.vue'
+import InviteSignUp from '../views/InviteSignUp.vue'
 
 Vue.use(VueRouter)
 
@@ -12,6 +14,11 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home
+  },
+  {
+    path: '/invite',
+    name: 'Invite',
+    component: InviteSignUp
   },
   {
     path: '/api',
@@ -25,6 +32,14 @@ const routes = [
     path: '/voicing',
     name: 'Voicing',
     component: Voicing,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/organization',
+    name: 'Organization',
+    component: Organization,
     meta: {
       requiresAuth: true
     }

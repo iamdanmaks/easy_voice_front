@@ -38,7 +38,7 @@
                 <div class="uk-grid-medium uk-flex-middle" uk-grid>
                     <div class="uk-width-expand">
                         <h4 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset" href="#">
-                            Voiced with: {{ v.voice }}
+                            Voiced with: {{ v.voice == null ? 'Deleted voice' : v.voice }}
                         </a></h4>
                         <ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
                             <li><a href="#">{{ v.date.split(' ')[0] }}</a></li>
@@ -98,7 +98,9 @@ export default {
         this.$http
         .get('http://34.118.9.73:8080/api/query/?organization=' + this.$store.state.organization.public_id)
         .then(resp => {
-            _this.queries = resp.data
+            _this.queries = resp.data.sort(function(a,b){
+                return new Date(a.date) - new Date(b.date);
+            });
 
             const queriesByDate = resp.data.reduce((acc, value) => {
                 if (!acc[value.date.split(' ')[0]]) {

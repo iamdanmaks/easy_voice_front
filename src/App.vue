@@ -27,7 +27,9 @@
               </router-link>
             </li>
             <li>
-              <a href="#"><span class="uk-margin-small-right" uk-icon="icon: database"></span> Voices</a>
+              <router-link to="/voice">
+                <span class="uk-margin-small-right" uk-icon="icon: database"></span> Voices
+              </router-link>
             </li>
             <li>
               <router-link to="/voicing">

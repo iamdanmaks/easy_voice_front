@@ -6,6 +6,7 @@ import Api from '../views/Api.vue'
 import Voicing from '../views/Voicing.vue'
 import Organization from '../views/Organization.vue'
 import InviteSignUp from '../views/InviteSignUp.vue'
+import Voice from '../views/Voice.vue'
 
 Vue.use(VueRouter)
 
@@ -19,6 +20,14 @@ const routes = [
     path: '/invite',
     name: 'Invite',
     component: InviteSignUp
+  },
+  {
+    path: '/voice',
+    name: 'Voice',
+    component: Voice,
+    meta: {
+      requiresAuth: true
+    }
   },
   {
     path: '/api',

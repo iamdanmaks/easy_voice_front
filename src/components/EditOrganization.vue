@@ -9,7 +9,6 @@
         </div>
         <div class="uk-margin">
             <label class="uk-form-label" for="form-stacked-text">Card</label>
-            <span v-if="!rendered" uk-spinner="ratio: 3.5"></span>
             <div id="card-form-edit"></div>
         </div>
         <button class="uk-button uk-button-default" v-on:click="edit">Submit</button>

@@ -1,3 +1,185 @@
 {
-  "message": "hello i18n !!"
+  "menu": {
+    "home": "Home",
+    "org": "Organization",
+    "voice": "Voices",
+    "voicing": "Text voicing",
+    "api": "API",
+    "out": "Sign out"
+  },
+  "card": {
+    "submit": "Submit"
+  },
+  "voice_add": {
+    "name": "Name",
+    "descr": "Description",
+    "file": "Load from file",
+    "record": "Record",
+    "name_holder": "New voice name...",
+    "descr_holder": "New voice description...",
+    "select": "Select file",
+    "tip": "Press to record your voice",
+    "save": "Save",
+    "all": "All fields have to be filled in",
+    "fillin": "Name has to be filled in"
+  },
+  "unsigned_home": {
+    "demo": "Demo",
+    "features": "Features",
+    "vc": "Voice cloning",
+    "vc_text": "You can add a new voice for the system by passing just a few seconds of speaker talking. It will be enough to get speakers basic voice parameters",
+    "ms": "Multilingual support",
+    "ms_text": "System includes some algorithms to scale for new languages as quickly as possible.",
+    "hqs": "High quality speech",
+    "hqs_text": "System can generate high quality speech using high tech machine learning models.",
+    "descr": "The system provides services for business. You pay only for voiced texts, so your organization will be billed only when it uses the models actively.",
+    "reg": "Get these features after registration:",
+    "reg1": "1. Web app to manage the organization and measure your activity",
+    "reg2": "2. Raw API access to voice texts faster",
+    "reg3": "3. Program interface and libraries to intregrate our solutions into your system",
+    "try": "Try it now for free"
+  },
+  "demo": {
+    "try": "Try voice the text with some default voices",
+    "voice": "Choose the voice",
+    "text": "Text to voice",
+    "submit": "Submit",
+    "holder": "Your text..."
+  },
+  "signed_home": {
+    "demo": "Your organization is in demo mode now. Add billing info to upgrade it for unlimited usage. You can check the remaining voicing tokens below. They will be saved after upgrade.",
+    "save": "Save queries as .csv",
+    "words": "Most common words",
+    "voiced": "Voiced with: ",
+    "en": "English",
+    "uk": "Ukrainian",
+    "sum_tokens": "Sum of tokens per date",
+    "avg_tokens": "Average tokens perdate",
+    "num_q": "Number of queries per date",
+    "qd": "Queries per date",
+    "qtd": "Query time per date",
+    "gen_time": "General spent query time per date",
+    "avg_time": "Average spent query time per date",
+    "qpl": "Queries per language"
+  },
+  "org": {
+    "edit": "Edit",
+    "upgrade": "Upgrade",
+    "delete": "Delete",
+    "invite": "Invite a new person to your organization. Enter their email below:",
+    "email": "Email",
+    "holder": "New member email...",
+    "inv": "Invite",
+    "mems": "Members",
+    "remove": "Remove from organization",
+    "change": "Change status"
+  },
+  "voices": {
+    "play": "Play",
+    "edit": "Edit",
+    "delete": "Delete",
+    "add": "Add new voice"
+  },
+  "voicing": {
+    "descr": "Voice the text using available voices",
+    "choose": "Choose the voice",
+    "vt": "Voice the text",
+    "fc": "Voice the file content",
+    "file": "Select file",
+    "submit": "Submit"
+  },
+  "api": {
+    "inp": "INPUT:",
+    "out": "OUTPUT:",
+    "post": "POST",
+    "get": "GET",
+    "key": "ORGANIZATION API KEY",
+    "descr": "Do not pass your API key to anyone else. Change it at least once a month to keep everything secured.",
+    "vt": "Voice the text",
+    "status": "result status",
+    "message": "result message",
+    "vt_inp": {
+      "pub_id": "voice public id",
+      "text": "text to voice",
+      "org": "organization public id"
+    },
+    "av_inp": {
+      "name": "voice name",
+      "descr": "voice description",
+      "org": "organization public id"
+    },
+    "vt_json": {
+      "result": "output file link"
+    },
+    "av": "Add voice",
+    "gvq": "Get voicing queries",
+    "gvq_json": {
+      "text": "voiced text",
+      "dt": "query datetime",
+      "lang": "text language code",
+      "tp": "seconds to process text",
+      "voice": "used voice name",
+      "url": "temporary presigned url"
+    },
+    "gv": "Get voices",
+    "gv_json": {
+      "name": "voice name",
+      "descr": "voice description",
+      "pub_id": "voice public id",
+      "url": "temporary voice presigned url"
+    },
+    "oi": "Get organization information",
+    "oi_json": {
+      "name": "organization name",
+      "descr": "organization description",
+      "pub_id": "organization public id",
+      "key": "organization API key",
+      "date": "registration datetime",
+      "demo": "demo status",
+      "tokens_left": "demo tokens left",
+      "member": {
+        "pub_id": "user public id",
+        "email": "user email",
+        "first_name": "user first name",
+        "last_name": "user last name",
+        "username": "member username",
+        "date": "user registration date",
+        "admin": "organization admin status (true/false)"
+      }
+    }
+  },
+  "user": {
+    "status": " Admin",
+    "email": "Email:",
+    "date": "Registration date:",
+    "edit": "Edit profile",
+    "del": "Delete profile",
+    "basic": "Basic information",
+    "first": "First name",
+    "last": "Last name",
+    "change": "Change password",
+    "old": "Old password",
+    "new": "New password",
+    "repeat": "Repeat new password",
+    "save": "Save changes",
+    "match": "New password doesn't match"
+  },
+  "signin": {
+      "title": "Sign In",
+      "email_username": "Email or username...",
+      "password": "Password...",
+      "login": "Submit"
+  },
+  "signup": {
+    "title": "Sign Up",
+    "email": "Email",
+    "username": "Username",
+    "first_name": "First name",
+    "last_name": "Last name",
+    "apply": "Apply reason",
+    "org": "Organization name",
+    "password": "Password",
+    "repeat": "Password repeat",
+    "check_email": " Check your email for further actions."
+  }
 }

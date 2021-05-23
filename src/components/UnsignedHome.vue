@@ -13,9 +13,9 @@
           <img class="uk-width-medium uk-height-medium" src="../assets/logo.png"  />
           <div>
               <div class="uk-button-group">
-                  <a class="uk-button uk-button-danger" href="#signup-modal" uk-toggle>Sign Up</a>
-                  <a class="uk-button uk-button-danger" href="#demo-modal" uk-toggle>Demo</a>
-                  <a href="#login-modal" uk-toggle class="uk-button uk-button-danger">Sign In</a>
+                  <a class="uk-button uk-button-danger" href="#signup-modal" uk-toggle>{{ $t('signup.title') }}</a>
+                  <a class="uk-button uk-button-danger" href="#demo-modal" uk-toggle>{{ $t('unsigned_home.demo') }}</a>
+                  <a href="#login-modal" uk-toggle class="uk-button uk-button-danger">{{ $t('signin.title') }}</a>
               </div>
           </div>
         </div>
@@ -28,7 +28,7 @@
 
     <center>
       <h1>
-        Features
+        {{ $t('unsigned_home.features') }}
       </h1>
     </center>
 
@@ -38,11 +38,10 @@
                 <h3 class="uk-card-title">
                   <span uk-icon="icon: users; ratio: 2"></span>
                   <br />
-                  Voice cloning
+                  {{ $t('unsigned_home.vc') }}
                 </h3>
                 <p>
-                  You can add a new voice for the system by passing just a few seconds of speaker talking. 
-                  It will be enough to get speakers basic voice parameters
+                  {{ $t('unsigned_home.vc_text') }}
                 </p>
             </center>
         </div>
@@ -51,10 +50,10 @@
                 <h3 class="uk-card-title">
                   <span uk-icon="icon: world; ratio: 2"></span>
                   <br />
-                  Multilingual support
+                  {{ $t('unsigned_home.ms') }}
                 </h3>
                 <p>
-                  System includes some algorithms to scale for new languages as quickly as possible.
+                  {{ $t('unsigned_home.ms_text') }}
                 </p>
             </center>
         </div>
@@ -63,10 +62,10 @@
                 <h3 class="uk-card-title">
                   <span uk-icon="icon: soundcloud; ratio: 2"></span>
                   <br />
-                  High quality speech
+                  {{ $t('unsigned_home.hqs') }}
                 </h3>
                 <p>
-                  System can generate high quality speech using high tech machine learning models.
+                  {{ $t('unsigned_home.hqs_text') }}
                 </p>
             </center>
         </div>
@@ -76,27 +75,26 @@
 
     <center>
       <h3 style="width: 75vw">
-        The system provides services for business. 
-        You pay only for voiced texts, so your organization will be billed only when it uses the models actively.
+        {{ $t('unsigned_home.descr') }}
       </h3>
       <h3>
-        Get these features after registration:
+        {{ $t('unsigned_home.reg') }}
       </h3>
       <div>
           <ul class="uk-list">
               <li>
                 <h4>
-                  1. Web app to manage the organization and measure your activity
+                  {{ $t('unsigned_home.reg1') }}
                 </h4>
               </li>
               <li>
                 <h4>
-                  2. Raw API access to voice texts faster
+                  {{ $t('unsigned_home.reg2') }}
                 </h4>
               </li>
               <li>
                 <h4>
-                  3. Program interface and libraries to intregrate our solutions into your system
+                  {{ $t('unsigned_home.reg3') }}
                 </h4>
               </li>
           </ul>
@@ -107,7 +105,7 @@
     <center>
       <a class="uk-button uk-button-default uk-button-large"
         style="color: #000000" href="#demo-modal" uk-toggle>
-        Try it now for free
+        {{ $t('unsigned_home.try') }}
       </a>
     </center>
     <br />
@@ -120,12 +118,12 @@
           </h5>
           <br>
           <div class="uk-button-group">
-              <button class="uk-button uk-button-text uk-margin-right">Sign Up</button>
+              <button class="uk-button uk-button-text uk-margin-right">{{ $t('signup.title') }}</button>
               <a uk-toggle class="uk-button uk-button-text uk-margin-left uk-margin-right"
               href="#demo-modal">
-                Demo
+                {{ $t('unsigned_home.demo') }}
               </a>
-              <button class="uk-button uk-button-text uk-margin-left">Sign In</button>
+              <button class="uk-button uk-button-text uk-margin-left">{{ $t('signin.title') }}</button>
           </div>
           <br><br>
           <select v-model="$i18n.locale" class="uk-select uk-width-small">
@@ -182,6 +180,27 @@ export default {
       return {
           langs: ['en', 'uk'],
           fullLangs: ['English', 'Українська']
+      }
+  },
+  computed: {
+    locale: function () {
+        return this.$i18n.locale;
+    }
+  },
+  watch: {
+      locale: function (val) {
+          if (val == 'en') {
+              localStorage.setItem('locale', 'en_UK');
+              this.$http.defaults.headers.common['Accept-Language'] = 'en_UK';
+              this.$store
+              .dispatch('setLocale', 'en')
+          }
+          else if (val == 'uk') {
+              localStorage.setItem('locale', 'uk_UA');
+              this.$http.defaults.headers.common['Accept-Language'] = 'uk_UA';
+              this.$store
+              .dispatch('setLocale', 'uk')
+          }
       }
   }
 }

@@ -12,13 +12,17 @@
                         </a></h4>
                         <ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
                             <li><a href="#">{{ $store.state.organization.registration_date.split(' ')[0] }}</a></li>
-                            <li><a href="#org-edit-modal" uk-toggle class="uk-button uk-button-text">Edit</button></a>
+                            <li><a href="#org-edit-modal" uk-toggle class="uk-button uk-button-text">
+                                {{ $t('org.edit') }}
+                            </button></a>
                             <li v-if="$store.state.organization.demo"><a href="#upgrade-modal" uk-toggle
                             class="uk-button uk-button-text">
-                                Upgrade
+                                {{ $t('org.upgrade') }}
                             </a></li>
                             <li>
-                                <button class="uk-button uk-button-text">Delete</button>
+                                <button class="uk-button uk-button-text">
+                                    {{ $t('org.delete') }}
+                                </button>
                             </li>
                         </ul>
                     </div>
@@ -34,18 +38,18 @@
         <form @submit.prevent="inviteUser" class="uk-margin uk-card uk-card-default uk-card-body uk-width-5-6 uk-align-center">
             <fieldset class="uk-fieldset">
 
-                <legend class="uk-legend">Invite a new person to your organization. Enter their email below:</legend>
+                <legend class="uk-legend">{{ $t('org.invite') }}</legend>
 
                 <div class="uk-margin">
-                    <label class="uk-form-label" for="form-stacked-text">Email</label>
+                    <label class="uk-form-label" for="form-stacked-text">{{ $t('org.email') }}</label>
                     <div class="uk-form-controls">
-                        <input v-model="invite_email" class="uk-input uk-width-large" id="form-stacked-text" type="text" placeholder="New member email...">
+                        <input v-model="invite_email" class="uk-input" id="form-stacked-text" type="text" :placeholder="$t('org.holder')">
                     </div>
                 </div>
 
                 <div class="uk-margin">
                     <button class="uk-button uk-button-default">
-                        Invite
+                        {{ $t('org.inv') }}
                     </button>
                 </div>
 
@@ -53,10 +57,10 @@
         </form>
 
         <div class="uk-text-large">
-            Members
+            {{ $t('org.mems') }}
         </div>
 
-        <article v-for="u in $store.state.organization.users.slice(1)" 
+        <article v-for="u in $store.state.organization.users.sort(function(a,b){return new Date(a.registration_date) - new Date(b.registration_date);}).slice(1)" 
         class="uk-margin uk-comment uk-comment-primary uk-margin-large-right">
             <header class="uk-comment-header">
                 <div class="uk-grid-medium uk-flex-middle" uk-grid>
@@ -68,7 +72,7 @@
                         <h4 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset" href="#">
                             {{ u.first_name + ' ' + u.last_name }}<sup class="uk-margin-small-left"
                              v-if="u.organization_admin" 
-                             uk-icon="icon: bolt" :uk-tooltip="'title: ' + $store.state.organization.name + ' Admin'"></sup>
+                             uk-icon="icon: bolt" :uk-tooltip="'title: ' + $store.state.organization.name + $t('user.status')"></sup>
                         </a></h4>
                         <ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
                             <li><a href="javascript:void(0)">{{ u.registration_date.split(' ')[0] }}</a></li>
@@ -80,8 +84,8 @@
             </header>
             <div class="uk-comment-body">
                 <div class="uk-button-group">
-                    <button v-on:click="changeStatus(u.public_id)" class="uk-button uk-button-default">Change status</button>
-                    <button v-on:click="removeUser(u.public_id)" class="uk-button uk-button-default">Remove from organization</button>
+                    <button v-on:click="changeStatus(u.public_id)" class="uk-button uk-button-default">{{ $t('org.change') }}</button>
+                    <button v-on:click="removeUser(u.public_id)" class="uk-button uk-button-default">{{ $t('org.remove') }}</button>
                 </div>
             </div>
         </article>

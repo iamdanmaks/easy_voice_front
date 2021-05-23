@@ -2,10 +2,10 @@
     <form @submit.prevent="voiceText">
         <fieldset class="uk-fieldset">
 
-            <legend class="uk-legend">Try voice the text with some default voices</legend>
+            <legend class="uk-legend">{{ $t('demo.try') }}</legend>
 
             <div class="uk-margin">
-                <div class="uk-form-label">Choose the voice<sup style="color: darkred; font-size: 10pt">*</sup></div>
+                <div class="uk-form-label">{{ $t('demo.voice') }}<sup style="color: darkred; font-size: 10pt">*</sup></div>
                 <div class="uk-form-controls">
                     <select v-model="chosen_voice" class="uk-select">
                         <option v-for="(v) in voices" 
@@ -15,13 +15,13 @@
             </div>
 
             <div class="uk-margin">
-                <div class="uk-form-label">Text to voice<sup style="color: darkred; font-size: 10pt">*</sup></div>
-                <textarea v-model="text" class="uk-textarea" rows="5" placeholder="Your text..."></textarea>
+                <div class="uk-form-label">{{ $t('demo.text') }}<sup style="color: darkred; font-size: 10pt">*</sup></div>
+                <textarea v-model="text" class="uk-textarea" rows="5" :placeholder="$t('demo.holder')"></textarea>
             </div>
 
             <div class="uk-margin">
                 <button class="uk-button uk-button-default">
-                    Submit
+                    {{ $t('demo.submit') }}
                 </button>
             </div>
 

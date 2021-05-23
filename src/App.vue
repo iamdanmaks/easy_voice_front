@@ -1,60 +1,20 @@
 <template>
   <div class="uk-flex" style="max-width: 100vw">
-    <div v-if="isLoggedIn && !isMobile" class="uk-card uk-card-default uk-card-body" 
-    style="width: 20 vw; height: 100vh; ; position: fixed">
-        <center>
-          <avatar :username="$store.state.user.first_name + ' ' + $store.state.user.last_name"
-          :size="120"></avatar>
-          <h3 class="uk-text-lead" style="font-size: 16pt">
-            {{ $store.state.user.first_name + ' ' + $store.state.user.last_name }} 
-            <sup v-if="$store.state.user.organization_admin" 
-            uk-icon="icon: bolt" :uk-tooltip="'title: ' + $store.state.organization.name + ' Admin'"></sup>
-            <br>
-            <span style="font-size: 14pt" class="uk-text-meta">
-              {{ '@' + $store.state.user.username }}  
-            </span>
-          </h3>  
-        </center>       
-        <ul class="uk-nav-default uk-nav-parent-icon" uk-nav>
-            <li>
-              <router-link to="/">
-                <span class="uk-margin-small-right" uk-icon="icon: home"></span> Home
-              </router-link>
-            </li>
-            <li v-if="$store.state.user.organization_admin">
-              <router-link to="/organization">
-                <span class="uk-margin-small-right" uk-icon="icon: users"></span> Organization
-              </router-link>
-            </li>
-            <li>
-              <router-link to="/voice">
-                <span class="uk-margin-small-right" uk-icon="icon: database"></span> Voices
-              </router-link>
-            </li>
-            <li>
-              <router-link to="/voicing">
-                <span class="uk-margin-small-right" uk-icon="icon: soundcloud"></span> Text voicing
-              </router-link>
-            </li>
-            <li>
-              <router-link to="/api">
-                <span class="uk-margin-small-right" uk-icon="icon: cloud-download"></span> API
-              </router-link>
-            </li>
-            <li>
-              <a href="#"><span class="uk-margin-small-right" uk-icon="icon: user"></span> Profile</a>
-            </li>
-            <li class="uk-nav-divider"></li>
-            <li v-on:click="logout"><a href="#"><span class="uk-margin-small-right" uk-icon="icon: sign-out"></span> Sign out</a></li>
-        </ul>
-        <div class="uk-position-bottom uk-width-1-1 uk-text-center" style="margin-bottom: 3vh;">
-          EasyVoice 2021
-        </div>
-    </div>
-    <router-view style="width: 79vw; margin-left: 21vw;" v-if="isLoggedIn"></router-view>
+    <Menu v-if="isLoggedIn && !isMobile" style="width: 20 vw; height: 100vh; position: fixed" />
+    <router-view style="width: 79vw; margin-left: 21vw;" v-if="isLoggedIn && !isMobile"></router-view>
+    <router-view class="uk-margin-left" v-if="isLoggedIn && isMobile">
+    </router-view>
     <router-view v-if="!isLoggedIn"></router-view>
 
-    <div id="upgrade-modal" class="uk-flex-top" uk-modal>
+    <div v-if="isLoggedIn && isMobile" id="nav" uk-offcanvas="mode: push; overlay: true">
+        <Menu style="height: 100vh;" />
+    </div>
+
+    <button type="button" v-if="isMobile"
+      style="position: absolute; width: 5vh; height: 5vh; border-radius: 50%; border: 1px solid black; bottom: -22vh; right: -17vw" 
+      uk-toggle="target: #nav" uk-icon="icon: menu"></button>
+
+    <div v-if="isLoggedIn" id="upgrade-modal" class="uk-flex-top" uk-modal>
         <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
 
             <button class="uk-modal-close-default" type="button" uk-close></button>
@@ -64,7 +24,7 @@
         </div>
     </div>
 
-    <div id="org-edit-modal" class="uk-flex-top" uk-modal>
+    <div v-if="isLoggedIn" id="org-edit-modal" class="uk-flex-top" uk-modal>
         <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
 
             <button class="uk-modal-close-default" type="button" uk-close></button>
@@ -74,7 +34,7 @@
         </div>
     </div>
 
-    <div id="voice-add-modal" class="uk-flex-top" uk-modal>
+    <div v-if="isLoggedIn" id="voice-add-modal" class="uk-flex-top" uk-modal>
         <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
 
             <button class="uk-modal-close-default" type="button" uk-close></button>
@@ -83,24 +43,52 @@
 
         </div>
     </div>
+
+    <div v-if="isLoggedIn && $store.state.user != null" id="user-modal" class="uk-flex-top" uk-modal>
+        <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+
+            <button class="uk-modal-close-default" type="button" uk-close></button>
+
+            <User />
+
+        </div>
+    </div>
+
+    <div v-if="isLoggedIn && $store.state.user != null" id="edit-voice-modal" class="uk-flex-top" uk-modal>
+        <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+
+            <button class="uk-modal-close-default" type="button" uk-close></button>
+
+            <VoiceEdit />
+
+        </div>
+    </div>
   </div>
 </template>
 
 <script>
-import Avatar from 'vue-avatar'
+import Menu from './components/Menu.vue'
 import UpgradeModal from './components/UpgradeModal.vue'
 import EditOrganization from './components/EditOrganization.vue'
 import VoiceAdd from './components/VoiceAdd.vue'
+import VoiceEdit from './components/VoiceEdit.vue'
+import User from './components/User.vue'
 
 export default {
   name: 'App',
   components: {
-    Avatar, UpgradeModal, EditOrganization, VoiceAdd
+    UpgradeModal, EditOrganization, VoiceAdd, VoiceEdit, Menu, User
   },
   data: () => ({
     
   }),
   mounted: function () {
+      var locale = localStorage.getItem('locale');
+      if (locale == null)
+        locale = 'en_UK';
+      this.$store.dispatch('setLocale', locale.split('_')[0])
+      this.$i18n.locale = locale;
+      
       if (this.$route.query.token && this.$route.query.confirm) {
         var _this = this;
         this.$http
@@ -115,6 +103,12 @@ export default {
           if (this.$store.state.user == null) {
               this.$store.dispatch("getUser")
           }
+          if (this.$store.state.organization == null) {
+              this.$store.dispatch("getOrg")
+          }
+          if (this.$store.state.voices.length == 0) {
+            this.$store.dispatch("getVoices", this.$store.state.organization.public_id)
+          }
       }
   },
   computed: {
@@ -127,12 +121,6 @@ export default {
       } else {       
         return false     
       }   
-    }
-  },
-  methods: {
-    logout: function () {
-      this.$store.dispatch("logout")
-      this.$router.push("/");
     }
   }
 };

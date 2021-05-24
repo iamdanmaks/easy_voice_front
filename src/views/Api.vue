@@ -1,7 +1,11 @@
 <template>
     <center class="uk-margin uk-align-center">
         {{ $t('api.descr') }}
-        <h2 class="uk-margin-top">{{ $t('api.key') }}</h2>
+        <br />
+        <a class="uk-link" href="https://test.pypi.org/project/easyvoice/0.1/">
+            {{ $t('api.package') }}
+        </a>
+        <h2 class="uk-margin-top">{{ $t('api.key') }} </h2>
         <div v-on:click="copyKey" uk-tooltip="Copy the key by clicking on the block"
         id="key" style="transition: 1s filter linear; height: 5vh; border-radius: 10px"
         class="blured uk-card-default uk-card-body uk-width-large uk-text-middle uk-text-truncate uk-text-center">

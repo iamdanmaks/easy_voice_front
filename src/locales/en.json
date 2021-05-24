@@ -89,6 +89,7 @@
     "submit": "Submit"
   },
   "api": {
+    "package": "Also, you can try EasyVoice package for Python 3.",
     "inp": "INPUT:",
     "out": "OUTPUT:",
     "post": "POST",
